@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>I have a back bone</title>
+    <script src="lib\jquery-1.9.1.min.js"></script>
+    <script src="lib\underscore-min.js"></script>
+    <script src="lib\backbone-min.js"></script>
+	<link rel="stylesheet" type="text/css" href="backbonefun.css" media="screen"/>
+</head>
+<body>
+	<table id="airlines">
+		<tr id="header">
+			<th class="left">Name</th>
+			<th class="center">BTS Code</th>
+			<th class="center">IATA Code</th>
+			<th class="center">ICAO Code</th>
+		</tr>
+		<tr id="footer">
+			<td colspan="4">
+				<span class="fake-link" id="prev">prev</span>
+				<span class="fake-link" id="next">next</span>
+			</td>
+		</tr>
+		<tr id="footer">
+			<td id="pageSizeFooter" colspan="4">
+			</td>
+		</tr>
+	</table>
+	<div id="edit-airline">
+		<div class="edit-header">Edit Airline Codes</div>
+		<div id="edit-airline-form" class="no-selection">No airline Selected</div>
+	</div>
+	<div id="add-airline">
+		<div class="edit-header">Add New Airline</div>
+		<div id="add-airline-form" class="selection-edit"></div>
+	</div>
+	<script src="backbonefun.js"></script>
+	
+	<script type="text/template" id="airline-template">
+		<td> <%= name %> </td>
+		<td class="center"><%= (bts_code == null ? '' : bts_code) %></td>
+		<td class="center"><%= (iata_code == null ? '' : iata_code)%></td>
+		<td class="center"><%= (icao_code == null ? '' : icao_code)%></td>
+	</script>
+	<script type="text/template" id="edit-airline-template">
+		<div class="edit-name"><%= name %></div>
+		<label class="bts" for="bts">BTS Code: </label>
+		<input id="bts" type="text" value="<%= bts_code %>"/><br/>
+		<label class="iata" for="iata">IATA Code: </label>
+		<input id="iata" type="text" value="<%= iata_code %>"/><br/>
+		<label class="icao" for="icao">ICAO Code: </label>
+		<input id="icao" type="text" value="<%= icao_code %>"/><br/>
+	</script>
+	<script type="text/template" id="edit-airline-template-empty">
+		No airline Selected
+	</script>
+	<script type="text/template" id="add-airline-template">
+		<label class="name" for="name">Name: </label>
+		<input id="name" class="name" type="text" value="<%= name %>"/><br/>
+		<label class="bts" for="bts">BTS Code: </label>
+		<input id="bts_add" type="text" value="<%= bts_code %>"/><br/>
+		<label class="iata" for="iata">IATA Code: </label>
+		<input id="iata_add" type="text" value="<%= iata_code %>"/><br/>
+		<label class="icao" for="icao">ICAO Code: </label>
+		<input id="icao_add" type="text" value="<%= icao_code %>"/><br/>
+		<button type='button'>Add Airline</button>
+	</script>
+	<script type="text/template" id="pageSize-template">
+		<label for="page">Nb of Airlines per page: </label>
+		<input id="page" type="text" value="<%= pageSize %>"/>
+	</script>
+	<script type="text/template" id="pageLink-template">
+		<span class="fake-link" id="prev">prev</span>
+	</script>
+</body>
+</html>
