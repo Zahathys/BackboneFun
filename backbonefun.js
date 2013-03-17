@@ -217,7 +217,7 @@ $(function(){
 	var tableOptions = new TableOptions({currentPage: 1,pageSize: 15});
 	var appview = new AirlineListView({collection: Airlines, model: tableOptions});
 	
-	$.getJSON('Airline.json', function(data) {
+	$.getJSON('data/Airline.json', function(data) {
 		$.each(data, function(index, element) {
 			Airlines.add(element);
 		});
