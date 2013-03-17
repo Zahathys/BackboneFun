@@ -42,6 +42,7 @@ $(function(){
 			$.each(this.viewList, function(index, element) {
 				element.remove();
 			});
+			airlineEditView.emptyIt();
 			
 			var startIndex = (this.model.get("currentPage") - 1) * this.model.get("pageSize");
 			for (var i = startIndex; i < startIndex + this.model.get("pageSize"); i++) {
@@ -51,6 +52,7 @@ $(function(){
 					this.viewList[i] = view;
 				}
 			}
+			
 		},
 		
 		render: function () {
@@ -118,6 +120,8 @@ $(function(){
 		
 		render: function () {
 			this.$el.html(this.template(this.model.toJSON()));
+			this.$el.draggable({ revert: true, helper: "clone" });
+			this.$el.data("backbone-view", this);
 			return this;
 		},
 		
@@ -209,11 +213,80 @@ $(function(){
 		}
 	});
 	
+	var MyAirlineView = Backbone.View.extend({
+		el: $('#my-airlines'),
+		
+		template: _.template($('#my-airline-template').html()),
+		template_empty: _.template($('#my-airline-template-empty').html()),
+  
+		initialize: function () {
+			this.render();
+			this.modelList = new Array();
+		},
+		
+		events: {
+			'click #toPdf': 'toPdf'
+	    },
+		
+		render: function () {
+			this.$el.find('#my-airline-form').html(this.template_empty());
+			this.$el.find('#my-airline-form').addClass("no-airlines");
+			this.$el.droppable({
+				drop: function( event, ui ) {
+					var model = $(ui.draggable).data("backbone-view").model;
+					myAirlinesView.addAirline(model);
+				}
+			});
+		},
+		
+		addAirline: function (model) {
+			if(!this.alreadyCalled){
+				this.$el.find('#my-airline-form').removeClass("no-airlines");
+				this.$el.find('#my-airline-form').empty();
+				this.alreadyCalled = true;
+			}
+			this.$el.find('#my-airline-form').append(this.template(model.toJSON()));
+			this.modelList.push(model);
+		},
+		
+		toPdf: function () {
+			var doc = new jsPDF();
+			
+			doc.setTextColor(66, 66, 99);
+			doc.setFontType("bold");
+			doc.setFontSize(32);
+			doc.text(10, 20, "List of selected airlines");
+			
+			doc.setTextColor(66, 66, 99);
+			doc.setFontType("normal");
+			doc.setFontSize(21);
+			doc.setLineWidth(1);
+			doc.setDrawColor(66, 66, 99);
+			doc.setFillColor(66, 66, 99);
+			var i = 40;
+			$.each(this.modelList, function(index, element) {
+				var bts_code = element.get("bts_code");
+				var iata_code = element.get("iata_code");
+				var icao_code = element.get("icao_code");
+				var code = (bts_code == null ? (iata_code == null ? (icao_code == null ? '' : icao_code) : iata_code) : bts_code)
+			
+				doc.circle(15, i-2, 1, 'FD');
+				doc.text(20, i, element.get("name") + " - " + code);
+				i = i + 10;
+			});
+			
+			doc.output('datauri');
+		}
+		
+	});
+	
 	// Start application
 	//--------------------
 	var Airlines = new AirlineList;
+	var MyAirlines = new AirlineList;
 	var airlineEditView = new AirlineEditView();
 	var airlineAddView = new AirlineAddView();
+	var myAirlinesView = new MyAirlineView();
 	var tableOptions = new TableOptions({currentPage: 1,pageSize: 15});
 	var appview = new AirlineListView({collection: Airlines, model: tableOptions});
 	

@@ -3,8 +3,10 @@
 <head>
     <title>Lots of fun with backbone.js</title>
     <script src="lib\jquery-1.9.1.min.js"></script>
+    <script src="lib\jquery-ui-1.10.2.custom.min.js"></script>
     <script src="lib\underscore-min.js"></script>
     <script src="lib\backbone-min.js"></script>
+    <script src="lib\jspdf.js"></script>
 	<link rel="stylesheet" type="text/css" href="backbonefun.css" media="screen"/>
 </head>
 <body>
@@ -34,6 +36,14 @@
 		<div class="edit-header">Add New Airline</div>
 		<div id="add-airline-form" class="selection-edit"></div>
 	</div>
+	<div id="my-airlines">
+		<div class="edit-header2">My Airlines</div>
+		<div id="my-airline-form"></div>
+		<div id="my-airlines-pdf">
+			<button id="toPdf">Export to PDF</button>
+		</div>
+	</div>
+	
 	<script src="backbonefun.js"></script>
 	
 	<script type="text/template" id="airline-template">
@@ -71,6 +81,13 @@
 	</script>
 	<script type="text/template" id="pageLink-template">
 		<span class="fake-link" id="prev">prev</span>
+	</script>
+	<script type="text/template" id="my-airline-template">
+		<span class="my-airline"> <%= name %> - <%= (bts_code == null ? (iata_code == null ? (icao_code == null ? '' : icao_code) : iata_code) : bts_code) %></span> 
+		<br/>
+	</script>
+	<script type="text/template" id="my-airline-template-empty">
+		Drag airlines here
 	</script>
 </body>
 </html>

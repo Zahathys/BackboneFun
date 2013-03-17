@@ -60,22 +60,50 @@
 	position: absolute;
 	top: 45px;
 	left: 600px;
-	width: 500px;
-	height: 250px;
+	width: 400px;
+	height: 200px;
 	border: 4px solid #aabcfe;
 }
 
 #add-airline
 {
 	position: absolute;
-	top: 335px;
+	top: 285px;
 	left: 600px;
-	width: 500px;
-	height: 250px;
+	width: 400px;
+	height: 230px;
 	border: 4px solid #aabcfe;
 }
 
+#my-airlines
+{
+	position: absolute;
+	top: 45px;
+	left: 1050px;
+	width: 500px;
+	height: 470px;
+	border: 4px solid #aabcfe;
+}
+
+#my-airlines-pdf
+{
+	position: absolute;
+	top: 490px;
+	width: 500px;
+	text-align: center;
+}
+
 .edit-header
+{
+	width: 390px;
+	height: 20px;
+	background: #b9c9fe;
+	color: #039;
+	padding: 5px;
+	border-bottom: 4px solid #aabcfe;
+}
+
+.edit-header2
 {
 	width: 490px;
 	height: 20px;
@@ -96,19 +124,36 @@
 .no-selection
 {
 	color: #669;
-	width: 490px;
+	width: 390px;
 	padding: 5px;
-	padding-top: 80px;
+	padding-top: 50px;
 	text-align: center;
 	font-size: 32px;
+}
+
+.no-airlines
+{
+	color: #669;
+	width: 490px;
+	padding: 5px;
+	padding-top: 150px;
+	text-align: center;
+	font-size: 42px;
+}
+
+.my-airline
+{
+	padding: 5px;
+	color: #669;
+	font-size: 14px;
 }
 
 .selection-edit
 {
 	color: #669;
-	width: 490px;
+	width: 390px;
 	padding: 5px;
-	padding-top: 30px;
+	padding-top: 10px;
 	text-align: center;
 	font-size: 16px;
 }
@@ -124,7 +169,7 @@
 .edit-name
 {
 	padding-bottom: 16px;
-	font-size: 30px;
+	font-size: 24px;
 }
 
 .bts
