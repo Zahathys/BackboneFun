@@ -40,7 +40,9 @@ $(function(){
 		refreshAirlines: function () {
 			this.$el.find("tr").not("#header").not("#footer").empty();
 			$.each(this.viewList, function(index, element) {
-				element.remove();
+				if(element){
+					element.remove();
+				}
 			});
 			airlineEditView.emptyIt();
 			
